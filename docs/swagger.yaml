@@ -1,0 +1,18 @@
+basePath: /
+info:
+  contact: {}
+paths:
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: do ping
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"ping": 1}'
+          schema:
+            type: string
+      summary: ping example
+swagger: "2.0"
