@@ -1,18 +1,19 @@
 package main
 
 import (
+	"github.com/cimple-admin/cimple-cms-backend/internal/pkg"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func main() {
-	router := gin.Default()
+	app := pkg.GetInstance()
 
-	router.GET("/ping", func(c *gin.Context) {
+	app.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"pong": 1,
 		})
 	})
 
-	router.Run()
+	app.Run()
 }
