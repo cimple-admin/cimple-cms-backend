@@ -14,6 +14,8 @@ type app struct {
 var AppInstance *app
 
 func init() {
+	gin.SetMode("")
+
 	AppInstance = &app{
 		gin.Default(),
 	}

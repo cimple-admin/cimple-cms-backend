@@ -1,0 +1,5 @@
+app:
+  readTimeOut: 10
+  writeTimeOut: 10
+  httpPort: 8080
+  runMode: debug
