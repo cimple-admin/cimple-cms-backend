@@ -7,15 +7,10 @@ type app struct {
 	*gin.Engine
 }
 
-var appInstance *app
+var AppInstance *app
 
-// GetInstance 获取实例，单例模式
-func GetInstance() *app {
-	if appInstance == nil {
-		appInstance = &app{
-			gin.Default(),
-		}
+func init() {
+	AppInstance = &app{
+		gin.Default(),
 	}
-
-	return appInstance
 }

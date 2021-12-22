@@ -55,7 +55,7 @@ func pong(c *gin.Context) {
 
 // 整个项目的入口
 func main() {
-	app := pkg.GetInstance()
+	app := pkg.AppInstance
 	app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	app.GET("/ping", pong)
 
