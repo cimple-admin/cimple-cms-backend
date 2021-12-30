@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	"time"
+
 	_ "github.com/cimple-admin/cimple-cms-backend/docs"
 	"github.com/cimple-admin/cimple-cms-backend/internal/pkg"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
-	"net/http"
-	"time"
 )
 
 // @BasePath /
@@ -58,6 +59,11 @@ func main() {
 	app := pkg.AppInstance
 	app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	app.GET("/ping", pong)
+	app.GET("/checkInstalled", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"installed": app.IsInstalled(),
+		})
+	})
 
 	app.Run()
 }

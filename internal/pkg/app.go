@@ -35,3 +35,8 @@ func (app *app) Run() error {
 	}
 	return server.ListenAndServe()
 }
+
+// 获取应用是否安装了
+func (app app) IsInstalled() bool {
+	return cfg.IsInstalled
+}

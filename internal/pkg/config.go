@@ -7,14 +7,15 @@ import (
 )
 
 type config struct {
-	App appConfig `json:"app,omitempty"`
+	App         appConfig `mapstructure:"app,omitempty"`
+	IsInstalled bool      `mapstructure:"lock,omitempty"`
 }
 
 type appConfig struct {
-	ReadTimeOut  int    `json:"readTimeOut"`
-	WriteTimeOut int    `json:"writeTimeOut"`
-	HttpPort     string `json:"httpPort"`
-	RunMode      string `json:"runMode"`
+	ReadTimeOut  int    `mapstructure:"readTimeOut"`
+	WriteTimeOut int    `mapstructure:"writeTimeOut"`
+	HttpPort     string `mapstructure:"httpPort"`
+	RunMode      string `mapstructure:"runMode"`
 }
 
 func initConfig() config {
