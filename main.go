@@ -64,6 +64,10 @@ func main() {
 			"installed": app.IsInstalled(),
 		})
 	})
+	app.GET("/user/:name", func(c *gin.Context) {
+		name := c.Param("name")
+		c.String(http.StatusOK, "Hello %s", name)
+	})
 
 	app.Run()
 }
