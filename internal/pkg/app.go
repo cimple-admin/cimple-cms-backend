@@ -23,9 +23,9 @@ func init() {
 	AppInstance = &app{
 		gin.Default(),
 	}
-
 }
 
+// Run 自定义server 启动，为了设置一些参数
 func (app *app) Run() error {
 	server := &http.Server{
 		Addr:         ":" + cfg.App.HttpPort,
@@ -36,7 +36,7 @@ func (app *app) Run() error {
 	return server.ListenAndServe()
 }
 
-// 获取应用是否安装了
+// IsInstalled 获取应用是否安装了
 func (app app) IsInstalled() bool {
 	return cfg.IsInstalled
 }
