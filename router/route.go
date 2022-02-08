@@ -3,6 +3,8 @@ package router
 import (
 	"fmt"
 	"github.com/cimple-admin/cimple-cms-backend/internal/pkg"
+	"github.com/cimple-admin/cimple-cms-backend/internal/pkg/response"
+	"github.com/cimple-admin/cimple-cms-backend/middleware"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -13,12 +15,17 @@ import (
 
 func InitRoute() {
 	app := pkg.AppInstance
+	// 全局使用检测安装中间件
+	app.Use(middleware.CheckIsUnstall())
 	app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	app.GET("/ping", pong)
 	app.GET("/checkInstalled", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"installed": app.IsInstalled(),
 		})
+	})
+	app.GET("/install", middleware.CheckIsInstalled(), func(c *gin.Context) {
+		response.NewJson().OK(c, 10003, nil, "安装界面")
 	})
 	app.GET("/user/:name", func(c *gin.Context) {
 		name := c.Param("name")
