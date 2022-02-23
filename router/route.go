@@ -5,6 +5,7 @@ import (
 	"github.com/cimple-admin/cimple-cms-backend/internal/pkg"
 	"github.com/cimple-admin/cimple-cms-backend/internal/pkg/response"
 	"github.com/cimple-admin/cimple-cms-backend/middleware"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -16,6 +17,12 @@ import (
 func InitRoute() {
 	app := pkg.AppInstance
 	// 全局使用检测安装中间件
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:3000"}
+	// config.AllowOrigins == []string{"http://google.com", "http://facebook.com"}
+	// config.AllowAllOrigins = true
+
+	app.Use(cors.New(config))
 	app.Use(middleware.CheckIsUnstall())
 	app.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	app.GET("/ping", pong)
@@ -37,7 +44,7 @@ func InitRoute() {
 // PingExample godoc
 // @Summary ping example
 // @Description do ping
-// @Accept json
+// @Accept json4
 // @Produce json
 // @Success 200 {string} json "{"ping": 1}"
 // @Router /ping [get]
